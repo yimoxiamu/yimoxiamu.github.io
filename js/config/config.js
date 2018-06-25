@@ -1,2 +1,2 @@
-axios.defaults.baseURL="localhost:8090";
-axios.defaults.headers.post['content-Type'] = 'appliction/x-www-form-urlencoded';
+axios.defaults.baseURL="http://localhost:8090";
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
