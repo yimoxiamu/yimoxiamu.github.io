@@ -82,7 +82,7 @@
     //设置固定关注我们
 
 if ($('#follow-us')){
-    var followUsPosition = $('#follow-us').offset().top;
+    var followUsPosition = $('#follow-us').offset();
     window.onscroll = function () {
         var nowPosition =  document.documentElement.scrollTop;
         if (nowPosition - followUsPosition > 0 ) {

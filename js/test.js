@@ -22,3 +22,13 @@ axios.get("/type/defaultType").then(function (data) {
 })
 
 
+//获取默认blog主体
+axios.get("/type/test").then(function(data){
+    new Vue({
+            el:'.blogsbox',
+            data:{
+                blogs:data.data
+            }
+    })
+})
+
