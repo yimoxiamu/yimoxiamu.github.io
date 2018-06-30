@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>test</title>
+	<script src="js/jquery-2.1.1.min.js"></script>
+	<script src="js/ckeditor/ckeditor.js"></script>
+	<script src="js/jquery.js"></script>
+	<script type="text/javascript">
+		$(document).ready( function(){
+              $( '#editor1').ckeditor();
+         });
+	</script>
+</head>
+<body>
+       <textarea rows ="100" cols ="80" id ="editor1" name ="editor" ></textarea>
+       <input type="button" class="test" value='点我'>
+</body>
+<script type="text/javascript">
+	$(function(){
+		$('.test').click(function(){
+			// var iframes=document.getElementsByClassName("cke_wysiwyg_frame");
+			// console.info(iframes.html);
+    		// iframes.contentWindow.focus();
+    		// iframes.contentWindow.print();
+    		var data=CKEDITOR.instances.editor1.getData();
+
+    		
+    		// data = data.replace(/\s/g,'');
+    		// data = data.replace(/<\/?[^>]*>/g,''); //去除HTML tag 
+    		// data = data.replace(/[ | ]*\n/g,'\n'); //去除行尾空白
+    		// data = data.replace(/&nbsp;/ig,'');
+
+    		console.info(data)
+		})
+	})
+</script>
+</html>
