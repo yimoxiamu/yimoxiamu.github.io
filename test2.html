@@ -1,38 +1,18 @@
-console.info("进入axios");
-var instance = axios.create({
-    headers: {'content-type': 'application/x-www-form-urlencoded'}
-});
-instance .post("/type/test", Qs.stringify({name:"name",age:12})).then(function (value) { console.info(value.data) });
-
-
-
-//获取默认blogtype
-axios.get("/type/defaultType").then(function (data) {
-    if (data.data.retCode==0){
-        new Vue({
-            el:'#blog_type',
-            data:{
-                types:data.data.retMsg
-            }
-        })
-    }else{
-        console.info("出现错误，错误码为"+data.data.retCode);
-        console.info("错误信息为："+data.data.retMsg)
-    }
-})
-
-
-//获取默认blog主体
-axios.get("/type/test").then(function(data){
-    new Vue({
-            el:'.blogsbox',
-            data:{
-                blogs:data.data
-            }
-    })
-})
-
-
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue 测试实例 - 菜鸟教程(runoob.com)</title>
+<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+<script src="js/lib/axios.min.js"></script>
+<script src="js/config/config.js"></script>
+</head>
+<body>
+       <div id="app">
+       <input id="file" type="file" name="test" value="插入图片">
+       <button v-on:click="greet">提交</button>
+       </div>
+<script>
 var app = new Vue({
   el: '#app',
   data: {
@@ -58,5 +38,6 @@ var app = new Vue({
     }
   }
 })
-
-
+</script>
+</body>
+</html>
