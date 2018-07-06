@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ss</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">  
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  	<style type="text/css">
+  		div{
+  			border: 0px
+  		}
+  		pre{
+  			background: #C0C0C0;
+  			border-top-right-radius: 8px; 
+			border-top-left-radius: 8px; 
+			border-bottom-right-radius:8px;
+			border-bottom-left-radius:8px
+  		}
+  		.row{
+  			background: #C0C0C0;
+  		}
+  		.col-md-8{
+  			background: white;
+  		}
+  		.left{
+  			border-top-right-radius: 8px; 
+			border-top-left-radius: 8px; 
+			border-bottom-right-radius:8px;
+			border-bottom-left-radius:8px
+  		}
+  		.right{
+  			border-top-right-radius: 8px; 
+			border-top-left-radius: 8px; 
+			border-bottom-right-radius:8px;
+			border-bottom-left-radius:8px
+  		}
+  	</style>
+</head>
+<body>
+	<div class="row">
+		<div class="col-md-1 left"></div>
+		<div class="col-md-8">
+			<p>下面来看这部分代码</p>
+<pre>
+@RestController
+@Slf4j
+@RequestMapping(&quot;/type&quot;)
+public class BlogTypeControl {
+    @Autowired
+    BlogTypeService blogTypeService;
+
+    @Autowired
+    BlogMainService blogMainService;
+
+    @RequestMapping(&quot;/defaultType&quot;)
+    public Result getAllType(){
+        List&lt;BlogTypeEntity&gt; blogTypeEntities=blogTypeService.getAllType();
+        log.info(blogTypeEntities.toString());
+        return Result.success(blogTypeEntities);
+    }
+
+    @RequestMapping(&quot;test&quot;)
+    public Result test(String str){
+       String Str= blogMainService.errorTest(str);
+        return Result.success(Str);
+    }
+}</pre>
+
+<p>文中代码略略略</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+		</div>
+		<div class="col-md-2 right"></div>
+	</div>
+
+</body>
+</html>

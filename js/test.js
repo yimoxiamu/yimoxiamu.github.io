@@ -33,30 +33,4 @@ axios.get("/type/test").then(function(data){
 })
 
 
-var app = new Vue({
-  el: '#app',
-  data: {
-    name: 'Vue.js'
-  },
-  // 在 `methods` 对象中定义方法
-  methods: {
-    greet: function (event) {
-                    var file = document.getElementById("file").files[0];
-                    var formdata1=new FormData();// 创建form对象
-                    formdata1.append('img',file,file.name);
-                        // const instance=axios.create({
-                        //   withCredentials: true
-                        // })
-                    var config = {
-                    headers:{'Content-Type':'multipart/form-data'}
-                    };
-                    axios.post('/uploadImg',formdata1,config)
-                          .then(response=>{
-                            console.log(response.data);
-                    })
-                    
-    }
-  }
-})
-
 

@@ -8,7 +8,7 @@
 	<script src="js/jquery-2.1.1.min.js"></script>
 <script src="js/ckeditor/ckeditor.js"></script>
 <script src="js/jquery.js"></script>
-<script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+<script src="js/lib/vue.min.js"></script>
 <script src="js/lib/axios.min.js"></script>
 <script src="js/lib/qs.js"></script>
 <script src="js/config/config.js"></script>
@@ -16,39 +16,26 @@
 <script src="js/upload/upload.js"></script>
 </head>
 <body>
-	   <span>                                   文档编辑</span>
+	   <span>文档编辑</span>
        <textarea rows ="100" cols ="80" id ="editor1" name ="editor" ></textarea>
-<!--        <input type="button" class="test" value='点我'> -->
+<!--<input type="button" class="test" value='点我'> -->
        <div id="app">
        <input id="file" type="file" name="test" value="插入图片">
        <button v-on:click="greet">提交</button>
+       <button style="float: right;" v-on:click="put">发表</button>
        </div>
-
+        <div id="url">
+       <span v-if="seen">{{url.data}}</span>
+       </div>
 </body>
 <script type="text/javascript">
 	$(function(){
 		$(document).ready( function(){
             $( '#editor1').ckeditor();
-         });
-
-
-		$('.test').click(function(){
-			// var iframes=document.getElementsByClassName("cke_wysiwyg_frame");
-			// console.info(iframes.html);
-    		// iframes.contentWindow.focus();
-    		// iframes.contentWindow.print();
-    		var data=CKEDITOR.instances.editor1.getData();
-
-    		
-    		// data = data.replace(/\s/g,'');
-    		// data = data.replace(/<\/?[^>]*>/g,''); //去除HTML tag 
-    		// data = data.replace(/[ | ]*\n/g,'\n'); //去除行尾空白
-    		// data = data.replace(/&nbsp;/ig,'');
-
-    		console.info(data)
-    		console.info($('#upload_file').val())
-		})
+         })
 	})
+
+
 
 	var app = new Vue({
 	  el: '#app',
@@ -69,9 +56,23 @@
 	                    };
 	                    axios.post('/uploadImg',formdata1,config)
 	                          .then(response=>{
-	                            console.log(response.data);
+	                          	console.info(response.data)
+	                          	new Vue({
+	                          		el: '#url',
+	                          		data:{
+	                          			seen:true,
+	                          			url:response.data
+	                          		}
+	                          	})
+	                            
 	                    })
 	                    
+	    },
+	    put : function(event){
+	    	    	var data=CKEDITOR.instances.editor1.getData();
+	    	    	axios.post("/type/test",Qs.stringify({text:data})).then(function(response){
+	    	    		console.info(response.data);
+	    	    	})
 	    }
 	  }
 	})
