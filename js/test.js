@@ -1,36 +1,42 @@
-console.info("进入axios");
-var instance = axios.create({
-    headers: {'content-type': 'application/x-www-form-urlencoded'}
-});
-instance .post("/type/test", Qs.stringify({name:"name",age:12})).then(function (value) { console.info(value.data) });
+console.info("进入");
 
 
-
-//获取默认blogtype
-axios.get("/type/defaultType").then(function (data) {
-    if (data.data.retCode==0){
-        new Vue({
-            el:'#blog_type',
-            data:{
-                types:data.data.retMsg
-            }
-        })
-    }else{
-        console.info("出现错误，错误码为"+data.data.retCode);
-        console.info("错误信息为："+data.data.retMsg)
-    }
-})
+var blogmain=null;
 
 
+var padDate=function(va){
+     va=va<10?'0'+va:va;
+     return va
+}
+
+var mainconfig={
+    baseURL:"http://localhost:8090"
+}
 //获取默认blog主体
-axios.get("/type/test").then(function(data){
-    new Vue({
-            el:'.blogsbox',
-            data:{
-                blogs:data.data
-            }
+    var blogsbox=new Vue({
+        el:"#blogsbox",
+        filters:{
+            formatDate:function (val) {
+            var value=new Date(val);
+            var year=value.getFullYear();
+            var month=padDate(value.getMonth()+1);
+            var day=padDate(value.getDate());
+            return year+'-'+month+'-'+day;
+ 
+        }
+        },
+        data:{
+            blogmain:blogmain
+        }
     })
-})
-
+axios.get("/main/showAllBlog",mainconfig).then(response=>{
+    if(response.data.code==0){
+        console.info(response.data.data)
+        blogsbox.blogmain=response.data.data;
+    }else{
+        console.info(response.data.code);
+        console.info(response.data.msg);
+    }
+});
 
 

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>文档编辑页面</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="//unpkg.com/iview/dist/styles/iview.css">
+	<link rel="stylesheet" type="text/css" href="css/upload.css">
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">  
+	<script src="js/jquery-2.1.1.min.js"></script>
+	<script src="js/ckeditor/ckeditor.js"></script>
+	<script src="js/jquery.js"></script>
+	<script src="js/lib/vue.min.js"></script>
+	<script src="js/lib/axios.min.js"></script>
+	<script src="js/lib/qs.js"></script>
+	<script src="js/config/config.js"></script>
+	<script src="//unpkg.com/iview/dist/iview.min.js"></script>
+	<script src="js/upload/upload.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style type="text/css">
+		input[type="file"] {
+ 			 color: transparent;
+				}
+	</style>
+</head>
+<body>
+	   <h3 style="text-align:center;" id="sss">博客编辑</h3>
+       		<textarea rows ="100" cols ="80" id ="editor1" name ="editor" ></textarea>
+       		<div style="height: 25px">
+       			
+       		</div>
+       		<div>
+	   			<input type="text" class="form-control" placeholder="此处填写文章标题" name="title" style="width: 20%; margin: 5px;float: left;">
+	   			<input type="text" class="form-control" placeholder="此处填写文章简介" name="description" style="width: 78%;margin: 5px;float: right;">
+	   		</div>
+	   		<div style="height: 50px;width: 5px">
+       			
+       		</div>
+       	<div id="app">
+       		<div>
+       		<input id="file" type="file" name="test" style="margin: 5px" title="此处为提交文章内容图片">
+       		<h4  v-if="seen" style="float: right;">{{url}}</h4>
+       		</div>
+       		<div style="height: 50px">
+       			
+       		</div>
+       		<div>
+       		<button class="btn" style="float: right;margin: 5px" v-on:click="put">发表</button>	
+       		<button class="btn" style="float: right;margin: 5px" v-on:click="greet">提交</button>
+       		</div>
+       </div>
+       <div style="height: 20px"></div>
+		<div class="dropdown">
+			<button type="button" class="btn dropdown-toggle" id="dropdownMenu1" 
+			data-toggle="dropdown" style="margin: 5px" title="此处是选择文章类型">
+				{{defaults}}
+			<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+				<li role="presentation" v-for="type in blogtypedata">
+					<a role="menuitem" tabindex="-1" href="#" @click='change($event)' :value="type.id" :name="type.blog_type">{{type.blog_type}}</a>
+				</li>
+			</ul>
+		</div>
+		<div id="test">
+			<span>{{blogmain}}</span>
+		</div>
+</body>
+<script type="text/javascript">
+	//富文本编辑器工具
+	$(function(){
+		$(document).ready( function(){
+            $( '#editor1').ckeditor();
+         })
+
+		$('#sss').click(function(){
+			console.info(blogtype);
+		})
+	})
+
+
+	//图片上传工具
+	var appdata={seen: true,url:''};
+	var app = new Vue({
+	  el: '#app',
+	  data: appdata,
+	  methods: {
+	    greet: function (event) {
+	            var file = document.getElementById("file").files[0];
+	            var formdata1=new FormData();// 创建form对象
+	            formdata1.append('img',file,file.name);
+	            var config = {
+	            	headers:{'Content-Type':'multipart/form-data'}
+	            };
+	            axios.post('/uploadImg',formdata1,config)
+	            	.then(response=>{
+	             	console.info(response.data)
+	             	appdata.seen=true;
+	             	appdata.url=response.data.data})               	                            	     		                        
+	    },
+	    //文章上传
+	    put : function(event){
+	    	    var data=CKEDITOR.instances.editor1.getData();
+	    	    var title=$('input[name="title"]').val();
+	    	    var description=$('input[name="description"]').val();
+	    	    var config={
+	    	    	baseURL:"http://localhost:8090"
+	    	    }
+	    	    axios.post("/main/saveblog",Qs.stringify({text:data,title:title,description:description,blogType:blogtype}),config).then(response=>{
+	    	    	if(response.data.code==0){
+	    	    		console.info("发表成功");
+	    	    	}
+	    	    	else{
+	    	    		console.info(response.data.code);
+	    	    		console.info(response.data.msg);
+	    	    	}
+	    	    })
+	    }
+	  }
+	});
+
+    //获取文章类型
+	var blogtype="";  
+	//此为提交时的文章类型
+	var blogtypedata=null;
+	//文章类型配置	
+	var typeConfig={
+		baseURL:"http://localhost:8090"
+	}
+	axios.get("/type/defaultType",typeConfig).then(response=> {
+		if(response.data.code==0){
+			select.blogtypedata=response.data.data;
+		}else{
+			console.info(response.data.code);
+			console.info(response.data.msg);
+			blogtypedata=[{"blog_type":"出现错误","count":"0","id":1}];
+		}		
+	})
+	var select=new Vue({
+		el:'.dropdown',
+		data:{
+			defaults:"类型",
+			blogtypedata:blogtypedata
+		},
+		methods:{
+			change:function(event){
+				select.defaults=event.target.getAttribute('name');
+				blogtype=event.target.getAttribute('value');
+			}
+		}
+	});
+
+	
+</script>
+</html>
