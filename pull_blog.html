@@ -61,9 +61,6 @@
 				</li>
 			</ul>
 		</div>
-		<div id="test">
-			<span>{{blogmain}}</span>
-		</div>
 </body>
 <script type="text/javascript">
 	//富文本编辑器工具
@@ -103,7 +100,7 @@
 	    	    var title=$('input[name="title"]').val();
 	    	    var description=$('input[name="description"]').val();
 	    	    var config={
-	    	    	baseURL:"http://localhost:8090"
+	    	    	baseURL:"http://39.106.1.43:8090"
 	    	    }
 	    	    axios.post("/main/saveblog",Qs.stringify({text:data,title:title,description:description,blogType:blogtype}),config).then(response=>{
 	    	    	if(response.data.code==0){
@@ -124,7 +121,7 @@
 	var blogtypedata=null;
 	//文章类型配置	
 	var typeConfig={
-		baseURL:"http://localhost:8090"
+		baseURL:"http://39.106.1.43:8090"
 	}
 	axios.get("/type/defaultType",typeConfig).then(response=> {
 		if(response.data.code==0){

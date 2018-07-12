@@ -21,12 +21,10 @@
     });
     /*banner*/
     $('#banner').easyFader();
-
-    /*topnav select*/
-    var obj = null;
+var obj = null;
     var allMenu = document.getElementById('topnav').getElementsByTagName('a');
     // console.log(allMenu);
-    obj = allMenu[0];
+    obj = allMenu[0]; 
     for (i = 1; i < allMenu.length; i++) {
         if (window.location.href.indexOf(allMenu[i].href) >= 0) {
             obj = allMenu[i];
@@ -52,6 +50,7 @@
             $(this).attr('id', 'open').next().slideDown().siblings('dd').slideUp();
         }
     });
+
 
     //回到顶部
     // browser window scroll (in pixels) after which the "back to top" link is shown

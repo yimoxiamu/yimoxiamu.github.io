@@ -10,15 +10,36 @@
 <link href="css/index.css" rel="stylesheet">
 <link href="css/m.css" rel="stylesheet">
 <script src="js/jquery.min.js" type="text/javascript"></script>
-<script type="text/javascript">
-  $(function() {
-    $('#head').load("headder.html");
-  }) 
-</script> 
 </head>
 <body>
-<div id="head">
-</div>
+<header> 
+  <!--menu begin-->
+  <div class="menu">
+    <nav class="nav" id="topnav">
+      <h1 class="logo"><a href="http://www.yangqq.com">夏目</a></h1>
+      <li><a href="index.html">网站首页</a> </li>
+      <li><a href="about.html">关于我</a> </li>
+      <li><a href="share.html">我的相册</a></li>
+      <li><a href="list.html">学无止境</a></li>
+      <li><a href="life.html">慢生活</a></li>
+      <li><a href="time.html">时间轴</a> </li>
+      <li><a href="gbook.html">留言</a> </li>
+      <!--search begin-->
+      <div id="search_bar" class="search_bar">
+        <form  id="searchform" action="[!--news.url--]e/search/index.php" method="post" name="searchform">
+          <input class="input" placeholder="想搜点什么呢..." type="text" name="keyboard" id="keyboard">
+          <input type="hidden" name="show" value="title" />
+          <input type="hidden" name="tempid" value="1" />
+          <input type="hidden" name="tbname" value="news">
+          <input type="hidden" name="Submit" value="搜索" />
+          <span class="search_ico"></span>
+        </form>
+      </div>
+      <!--search end--> 
+    </nav>
+  </div>
+  <!--menu end--> 
+</header>
 <article> 
   <!--banner begin-->
  <div class="picsbox"> 
@@ -49,7 +70,7 @@
   <!--blogsbox begin-->
   <div class="blogsbox" id="blogsbox">
     <div class="blogs" data-scroll-reveal="enter bottom over 1s" v-for="blog in blogmain">
-      <h3 class="blogtitle"><a href="/" target="_blank">{{blog.blog_title}}</a></h3>
+      <h3 class="blogtitle"><a :href="blog.blog_info_url" target="blank">{{blog.blog_title}}</a></h3>
       <span class="blogpic"><a href="/" title=""><img src="images/toppic01.jpg" alt=""></a></span>
       <p class="blogtext">{{blog.blog_description}}</p>
       <div class="bloginfo">
@@ -79,31 +100,10 @@
         </li>
       </ul>
     </div>
-    <div class="tuijian">
-      <h2 class="hometitle">推荐文章</h2>
-      <ul class="tjpic">
-        <i><img src="images/toppic01.jpg"></i>
-        <p><a href="/">别让这些闹心的套路，毁了你的网页设计</a></p>
-      </ul>
-      <ul class="sidenews">
-        <li> <i><img src="images/toppic01.jpg"></i>
-          <p><a href="/">别让这些闹心的套路，毁了你的网页设计</a></p>
-          <span>2018-05-13</span> </li>
-        <li> <i><img src="images/toppic02.jpg"></i>
-          <p><a href="/">给我模板PSD源文件，我给你设计HTML！</a></p>
-          <span>2018-05-13</span> </li>
-        <li> <i><img src="images/v1.jpg"></i>
-          <p><a href="/">别让这些闹心的套路，毁了你的网页设计</a></p>
-          <span>2018-05-13</span> </li>
-        <li> <i><img src="images/v2.jpg"></i>
-          <p><a href="/">给我模板PSD源文件，我给你设计HTML！</a></p>
-          <span>2018-05-13</span> </li>
-      </ul>
-    </div>
     <div class="cloud">
       <h2 class="hometitle">标签云</h2>
-      <ul>
-        <a href="/">陌上花开</a> <a href="/">校园生活</a> <a href="/">html5</a> <a href="/">SumSung</a> <a href="/">青春</a> <a href="/">温暖</a> <a href="/">阳光</a> <a href="/">三星</a><a href="/">索尼</a> <a href="/">华维荣耀</a> <a href="/">三星</a> <a href="/">索尼</a>
+      <ul class="defaultType">
+        <a href="javascript:void(0)" v-for="type in defaultType">{{type.blog_type}}</a>
       </ul>
     </div>
     <div class="links">
@@ -117,11 +117,10 @@
     <div class="guanzhu" id="follow-us">
       <h2 class="hometitle">关注我们 么么哒！</h2>
       <ul>
-        <li class="sina"><a href="/" target="_blank"><span>新浪微博</span>杨青博客</a></li>
-        <li class="tencent"><a href="/" target="_blank"><span>腾讯微博</span>杨青博客</a></li>
-        <li class="qq"><a href="/" target="_blank"><span>QQ号</span>476847113</a></li>
-        <li class="email"><a href="/" target="_blank"><span>邮箱帐号</span>dancesmiling@qq.com</a></li>
-        <li class="wxgzh"><a href="/" target="_blank"><span>微信号</span>yangqq_1987</a></li>
+        <li class="sina"><a href="https://weibo.com/u/5333380708?topnav=1&wvr=6&topsug=1&is_hot=1" target="blank"><span>新浪微博</span>一抹夏目</a></li>
+        <li class="qq"><a href="javascript:void(0)" target="_blank"><span>QQ号</span>768840822</a></li>
+        <li class="email"><a href="javascript:void(0)" target="blank"><span>邮箱帐号</span>fyb_xiamu@163.com</a></li>
+        <li class="wxgzh"><a href="javascript:void(0)" target="blank"><span>微信号</span>a_xiamu</a></li>
         <li class="wx"><img src="images/wx.jpg"></li>
       </ul>
     </div>
@@ -138,6 +137,6 @@
 <script src="js/lib/axios.min.js"></script>
 <script src="js/config/config.js"></script>
 <script src="js/lib/qs.js"></script>
-<script src="js/test.js"></script>
+<script src="js/index.js"></script>
 </body>
 </html>

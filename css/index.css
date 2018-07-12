@@ -224,7 +224,7 @@ h1.t_nav { border-bottom: #bfbfbf 1px solid; font-size: 14px; font-weight: norma
 .meandblog li { background: #f1f1f1; line-height: 30px; margin: 5px 0; padding: 0 0 0 10px; border-radius: 10px; border-top: 2px solid #e2e2e2; text-shadow: #eae7e7 0px 0px 1px; }
 .meandblog li a:hover { color: #000 }
 /*money*/
-.dasbox{ width:130px; float:left; margin-left:40px;background: url(../images/dsbz.jpg) no-repeat left 20px center #E2523A ;
+.dasbox{ width:130px; float:left; margin:auto;background: url(../images/dsbz.jpg) no-repeat left 20px center #E2523A ;
     
     box-shadow: 1px 2px 6px 0px rgba(0,0,0,.2);
     border-radius: 3px;
