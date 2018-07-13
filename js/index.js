@@ -12,7 +12,7 @@ var padDate=function(va){
 
 
 var mainconfig={
-    baseURL:"http://39.106.1.43:8090"
+    baseURL:"http://localhost:8090"
 }
 
 //此处为默认标签VUE组件

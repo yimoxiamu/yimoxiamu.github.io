@@ -5,7 +5,7 @@ var blogid=strs[1];
 
 
 var oneConfig={
-    baseURL:"http://39.106.1.43:8090"
+    baseURL:"http://localhost:8090"
 }
 
 //此处为默认标签VUE组件
@@ -43,9 +43,7 @@ var padDate=function(va){
 }
 
 
-
-
-//此处为文章主题VUE组件定义
+//此处为文章主体VUE组件定义
 var blogone=null;
 var blog_one=new Vue({
     el:'.newsview',        
@@ -77,8 +75,7 @@ var blog_one=new Vue({
 //根据uuid取得文章内容
 axios.post("/main/showOneBlog",Qs.stringify({'id':blogid}),oneConfig).then(response=>{
     if(response.data.code==0){
-        blog_one.blogone=response.data.data;
-        console.info(response.data.data);
+        blog_one.blogone=response.data.data;      
     }else{
         console.info(response.data.code);
         console.info(response.data.msg);
@@ -86,5 +83,24 @@ axios.post("/main/showOneBlog",Qs.stringify({'id':blogid}),oneConfig).then(respo
 });
 
 
-//根据uuid获取文章前后文章
+var same_Type_Blog=null;
+var sameType=new Vue({
+    el:'.sameType',
+    data:{
+        same_Type:same_Type_Blog
+    }
+})
+
+//根据uuid取得相同文章标题以及连接
+axios.post("/main/getBlogByType",Qs.stringify({'id':blogid}),oneConfig).then(response=>{
+    if(response.data.code==0){
+        sameType.same_Type=response.data.data;
+        console.info(sameType.same_Type);
+    }else{
+        console.info(response.data.code);
+        console.info(response.data.msg);
+    }
+});
+
+
 

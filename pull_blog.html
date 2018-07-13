@@ -3,7 +3,6 @@
 <head>
 	<title>文档编辑页面</title>
 	<meta charset="utf-8">
-	<link rel="stylesheet" href="//unpkg.com/iview/dist/styles/iview.css">
 	<link rel="stylesheet" type="text/css" href="css/upload.css">
 	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">  
 	<script src="js/jquery-2.1.1.min.js"></script>
@@ -13,7 +12,6 @@
 	<script src="js/lib/axios.min.js"></script>
 	<script src="js/lib/qs.js"></script>
 	<script src="js/config/config.js"></script>
-	<script src="//unpkg.com/iview/dist/iview.min.js"></script>
 	<script src="js/upload/upload.js"></script>
 	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<style type="text/css">
@@ -100,7 +98,7 @@
 	    	    var title=$('input[name="title"]').val();
 	    	    var description=$('input[name="description"]').val();
 	    	    var config={
-	    	    	baseURL:"http://39.106.1.43:8090"
+	    	    	baseURL:"http://localhost:8090"
 	    	    }
 	    	    axios.post("/main/saveblog",Qs.stringify({text:data,title:title,description:description,blogType:blogtype}),config).then(response=>{
 	    	    	if(response.data.code==0){
